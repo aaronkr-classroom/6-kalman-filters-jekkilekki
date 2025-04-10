@@ -12,25 +12,34 @@ import matplotlib.pyplot as plt
 """
 
 class Car(object):
-    
-    
+
     # Car constructor 
     # Called when you write car.Car(_, _, _)
-    def __init__(self, position, velocity, world):
+    def __init__(self, position, velocity, world, color = 'r'):
         """Initializes Car with some position, velocity, and a world to traverse."""
         
         # Initialize the state
         # Position is a list [y, x] and so is velocity [vy, vx]
         self.state = [position, velocity]
         self.world = world # world is a 2D list of values that range from 0-1
-        
+
         # Set the default color
-        self.color = 'r'
+        self.color = color
         
         # Initalize the path
         self.path = []
         self.path.append(position)
+    
+    # Reset initial position
+    def reset_pos(self, position = [0, 0]):
+        """ Resets the car to a new position, and clears the path. """
         
+        # Reset the position
+        self.state[0] = position
+        
+        # Clear the path
+        self.path = []
+        self.path.append(position)
 
     # Move function
     def move(self, dt=1):
@@ -71,7 +80,7 @@ class Car(object):
             """
         
         # Change the velocity
-        velocity = self.state[1]
+        velocity = self.state[1] # [x, v]
         
         predicted_velocity = [
             -velocity[1],
